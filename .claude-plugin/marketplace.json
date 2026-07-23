@@ -8,10 +8,10 @@
       "version": "0.1.0",
       "description": "Generate images, video, and audio and run marketing apps (ads, product photoshoots, house tours) via the BeHooked MCP.",
       "skills": [
-        { "name": "generate", "path": "behooked-generate", "invoke": "/behooked:generate" },
-        { "name": "ads", "path": "behooked-ads", "invoke": "/behooked:ads" },
-        { "name": "product-photoshoot", "path": "behooked-product-photoshoot", "invoke": "/behooked:product-photoshoot" },
-        { "name": "house-tour", "path": "behooked-house-tour", "invoke": "/behooked:house-tour" }
+        "./behooked-generate",
+        "./behooked-ads",
+        "./behooked-product-photoshoot",
+        "./behooked-house-tour"
       ]
     }
   ]
