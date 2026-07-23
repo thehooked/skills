@@ -1,0 +1,18 @@
+{
+  "name": "behooked",
+  "version": "0.1.0",
+  "description": "BeHooked Studio skills: image/video/audio generation plus ad, product-photoshoot, and house-tour apps, driven by the live BeHooked MCP.",
+  "author": { "name": "BeHooked", "url": "https://behooked.ai" },
+  "homepage": "https://behooked.ai",
+  "repository": "https://github.com/thehooked/skills",
+  "license": "MIT",
+  "keywords": [
+    "behooked",
+    "image-generation",
+    "video-generation",
+    "audio-generation",
+    "ads",
+    "product-photoshoot",
+    "mcp"
+  ]
+}
