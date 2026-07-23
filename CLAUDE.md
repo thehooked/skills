@@ -10,20 +10,19 @@ A Claude Code plugin (`behooked`) bundling four **skills** (no MCP is bundled). 
 user connects separately — there is no backend code here.
 
 ```
-.claude-plugin/marketplace.json      # marketplace; points plugin source at ./behooked
-behooked/                            # the plugin (source: "./behooked")
-  .claude-plugin/plugin.json         #   plugin metadata
-  behooked-generate/  behooked-ads/  behooked-product-photoshoot/  behooked-house-tour/
+.claude-plugin/marketplace.json      # marketplace (plugin source: "./")
+.claude-plugin/plugin.json           # plugin metadata
+behooked-generate/  behooked-ads/  behooked-product-photoshoot/  behooked-house-tour/
 ```
 
-**Skills-only, no bundled MCP — on purpose.** Claude Code doesn't reliably support bundling a *remote*
-(`type: http`) MCP server inside a plugin: installing such a plugin fails with "This plugin uses a
-source type your Claude Code version does not support" (observed on 2.1.207; not confirmed fixed on
-later versions). So the plugin ships skills only, and users connect the hosted MCP once with
-`claude mcp add --transport http behooked https://mcp.behooked.ai/mcp`. The plugin also lives in a
-subdirectory (`source: "./behooked"`, not root `"./"`) to avoid a separate `.`→git source-normalization
-bug (GH #64431). Do **not** re-add a `.mcp.json` to the plugin unless bundled remote MCP becomes
-reliably supported.
+**Flat layout + `source: "./"` + skills-only, on purpose.** This mirrors the exact shape that installs
+cleanly (higgsfield-ai/skills). Two things that made install FAIL — do not reintroduce either:
+1. **A subdirectory plugin `source` (e.g. `"./behooked"`)** — Claude Code rejects it with "This plugin
+   uses a source type your Claude Code version does not support" (still failing on 2.1.218). The plugin
+   must be the repo root with `source: "./"`.
+2. **A bundled remote (`type: http`) MCP** (`.mcp.json` in the plugin) — same rejection. Ship skills
+   only; users connect the hosted MCP once with
+   `claude mcp add --transport http behooked https://mcp.behooked.ai/mcp`.
 
 ## Hard rules
 

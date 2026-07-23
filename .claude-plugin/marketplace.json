@@ -4,7 +4,7 @@
   "plugins": [
     {
       "name": "behooked",
-      "source": "./behooked",
+      "source": "./",
       "version": "0.1.0",
       "description": "Generate images, video, and audio and run marketing apps (ads, product photoshoots, house tours) via the BeHooked MCP.",
       "skills": [
