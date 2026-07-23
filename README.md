@@ -3,8 +3,8 @@
 AI media-generation skills for coding agents, powered by the live **[BeHooked Studio](https://behooked.ai)** MCP.
 
 Generate images, video, and audio, and run marketing apps (product ads, product photoshoots, real-estate
-house tours) directly from your agent — no CLI, no API keys to manage. Installing the plugin registers
-the BeHooked MCP for you; you sign in once via OAuth on the first generation.
+house tours) directly from your agent — no API keys to manage. Install the skills, connect the BeHooked
+MCP once, and sign in via OAuth on the first generation.
 
 ## Skills
 
@@ -15,24 +15,28 @@ the BeHooked MCP for you; you sign in once via OAuth on the first generation.
 | `/behooked:product-photoshoot` | 9 cinematic studio shots from a single product photo. |
 | `/behooked:house-tour` | Cinematic real-estate walkthrough video from listing photos, optionally with a guide avatar. |
 
-## Install (Claude Code)
+## Install
 
 Two one-time steps — install the skills, then connect the BeHooked MCP:
 
 ```
-# 1. install the skills
-/plugin marketplace add thehooked/skills
-/plugin install behooked@behooked
+# 1. install the skills (Claude Code, Cursor, Codex, and more)
+npx skills add thehooked/skills
 
-# 2. connect the BeHooked MCP (run in your terminal)
+# 2. connect the BeHooked MCP
 claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 
 The **first** time a skill runs a generation, your browser opens a one-time BeHooked sign-in (OAuth);
 after that it just works.
 
-> Why two steps? Claude Code doesn't yet reliably bundle a remote MCP server inside a plugin, so the
-> skills ship on their own and you connect the hosted MCP with the one-line `claude mcp add` above.
+> `npx skills` is the open cross-agent installer ([vercel-labs/skills](https://github.com/vercel-labs/skills));
+> it reads the skills straight from this repo. In Claude Code, run `/reload-skills` after installing to
+> pick them up in the current session. Prefer a Claude Code marketplace plugin instead? See
+> [INSTALL.md](INSTALL.md).
+
+> Why the second step? The skills drive the hosted BeHooked MCP. Connecting it once with the one-line
+> `claude mcp add` above wires up the tools — name the server exactly `behooked` so the skills resolve.
 
 > New to BeHooked? You can connect before you have an account. When a skill reports `account_required`,
 > finish signing up and pick a plan at **[behooked.ai](https://behooked.ai)** — then continue right in

@@ -1,26 +1,47 @@
 # Installing BeHooked Skills
 
-Installation is two one-time steps: install the skills plugin, then connect the BeHooked MCP.
+Installation is two one-time steps: install the skills, then connect the BeHooked MCP.
 
-## Claude Code (recommended)
+## 1. Install the skills
 
 ```
-# 1. install the skills
-/plugin marketplace add thehooked/skills
-/plugin install behooked@behooked
+npx skills add thehooked/skills
+```
 
-# 2. connect the BeHooked MCP (run in your terminal, not inside Claude Code)
+`npx skills` is the open, cross-agent installer ([vercel-labs/skills](https://github.com/vercel-labs/skills)).
+It reads the skills straight from this GitHub repo and writes them into the right place for your agent —
+Claude Code, Cursor, Codex, and more. No npm package, no API keys.
+
+In **Claude Code**, run `/reload-skills` afterward to load them in the current session. Confirm the skills
+are available from your prompts — e.g. `/behooked:generate`, `/behooked:ads`,
+`/behooked:product-photoshoot`, `/behooked:house-tour`.
+
+## 2. Connect the BeHooked MCP
+
+```
 claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 
-Verify with `/mcp` — you should see `behooked` listed. Confirm the skills loaded — these slash commands
-should be available: `/behooked:generate`, `/behooked:ads`, `/behooked:product-photoshoot`,
-`/behooked:house-tour`. The first generation triggers a one-time OAuth sign-in.
+The skills drive tools served by the hosted BeHooked MCP, so connect it once. Two details matter:
 
-> **Why two steps?** Claude Code doesn't yet reliably support bundling a *remote* MCP server inside a
-> plugin (installing such a plugin fails with a "source type not supported" error on current versions).
-> So the skills ship on their own and you connect the hosted MCP with the one-line `claude mcp add`.
-> Name the server exactly `behooked` so the skills' tool references resolve.
+- **Name the server exactly `behooked`** — the skills reference tools as `mcp__behooked__*`.
+- **Keep the trailing slash** on the URL — the MCP advertises its OAuth resource with the slash and the
+  Claude Code CLI client requires an exact match.
+
+Verify with `/mcp` — you should see `behooked` listed. The first generation triggers a one-time OAuth
+sign-in.
+
+## Alternative: Claude Code marketplace plugin
+
+Instead of `npx skills`, you can install the skills as a Claude Code plugin:
+
+```
+/plugin marketplace add thehooked/skills
+/plugin install behooked@behooked
+```
+
+Then connect the MCP as in step 2 above. (The plugin ships **skills only** — Claude Code doesn't yet
+reliably bundle a *remote* MCP server inside a plugin, so the MCP is always a separate one-line add.)
 
 ## Other clients (Claude Desktop/web, ChatGPT connectors)
 
@@ -40,5 +61,7 @@ Tool names may be namespaced differently by each client; the skills refer to too
 
 ## Updating
 
-Skill/plugin manifest changes: `/reload-plugins` (or restart the client). Editing a `SKILL.md` is picked
-up live. To update the MCP connection: `claude mcp remove behooked` then re-add.
+- **Skills:** `npx skills update` (or re-run `npx skills add thehooked/skills`). Editing a local
+  `SKILL.md` is picked up live; in Claude Code, `/reload-skills` reloads them. If you installed via the
+  plugin route, use `/reload-plugins` (or restart the client) instead.
+- **MCP connection:** `claude mcp remove behooked`, then re-add with the command in step 2.

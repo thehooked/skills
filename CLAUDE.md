@@ -5,9 +5,11 @@ it clean of anything internal.
 
 ## What this repo is
 
-A Claude Code plugin (`behooked`) bundling four **skills** (no MCP is bundled). Each skill is a
-`SKILL.md` + a `references/` folder. The skills are prose over the live BeHooked Studio MCP, which the
-user connects separately — there is no backend code here.
+Four agent **skills** for BeHooked, each a `SKILL.md` + a `references/` folder. The skills are prose over
+the live BeHooked Studio MCP, which the user connects separately — there is no backend code here. They
+install two ways: the open cross-agent installer (`npx skills add thehooked/skills`, the primary path,
+which reads the `SKILL.md` dirs straight from the repo) or as a Claude Code marketplace plugin
+(`behooked`; no MCP is bundled). Both consume the same skill directories.
 
 ```
 .claude-plugin/marketplace.json      # marketplace (plugin source: "./")
@@ -56,5 +58,6 @@ first action, never before validating, never before stating cost. Apps/media don
 - Mirror an existing `SKILL.md`: frontmatter (`version`, `name`, `description` with "Use when:" / "NOT
   for:", `argument-hint`, `allowed-tools`) + a body with Step 0 (MCP connected), the workflow, a
   selection tree, UX rules, and reference links.
-- Register it in `.claude-plugin/marketplace.json` under `skills`.
+- `npx skills` auto-discovers any new `SKILL.md` dir, but still register it in
+  `.claude-plugin/marketplace.json` under `skills` so the plugin install path picks it up too.
 - Re-check the hard rules before committing.
