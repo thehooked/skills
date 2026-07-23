@@ -25,7 +25,7 @@ Two one-time steps — install the skills, then connect the BeHooked MCP:
 /plugin install behooked@behooked
 
 # 2. connect the BeHooked MCP (run in your terminal)
-claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 
 The **first** time a skill runs a generation, your browser opens a one-time BeHooked sign-in (OAuth);
@@ -40,7 +40,7 @@ after that it just works.
 
 ## How it works
 
-Each skill is a prompt/orchestration layer over the BeHooked Studio MCP (`https://mcp.behooked.ai/mcp`).
+Each skill is a prompt/orchestration layer over the BeHooked Studio MCP (`https://mcp.behooked.ai/mcp/`).
 The skills encode model selection, parameter building, and the priced-then-generate workflow; the MCP
 does the generation and returns a hosted URL. Generation spends **credits** (your BeHooked plan); a
 skill always tells you the credit cost before it charges, and failed jobs aren't charged.
@@ -48,7 +48,7 @@ skill always tells you the credit cost before it charges, and failed jobs aren't
 ## Requirements
 
 - An MCP-capable agent (Claude Code today; the MCP also works in Claude Desktop/web and ChatGPT
-  connectors if you add `https://mcp.behooked.ai/mcp` manually).
+  connectors if you add `https://mcp.behooked.ai/mcp/` manually).
 - A BeHooked account with credits (set up at [behooked.ai](https://behooked.ai)).
 
 ## License

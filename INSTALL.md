@@ -10,7 +10,7 @@ Installation is two one-time steps: install the skills plugin, then connect the 
 /plugin install behooked@behooked
 
 # 2. connect the BeHooked MCP (run in your terminal, not inside Claude Code)
-claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 
 Verify with `/mcp` — you should see `behooked` listed. Confirm the skills loaded — these slash commands
@@ -26,7 +26,7 @@ should be available: `/behooked:generate`, `/behooked:ads`, `/behooked:product-p
 
 The skills drive tools served by the BeHooked MCP. Add the server in your client's connector settings:
 
-- **Endpoint:** `https://mcp.behooked.ai/mcp` (Streamable HTTP)
+- **Endpoint:** `https://mcp.behooked.ai/mcp/` (Streamable HTTP)
 - **Auth:** OAuth (the server runs the sign-in/consent flow; no manual token needed)
 
 Tool names may be namespaced differently by each client; the skills refer to tools by their base names

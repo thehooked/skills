@@ -30,7 +30,7 @@ This skill drives the BeHooked MCP, which is a **separate one-time setup** from 
 If the `behooked` tools aren't available, tell the user to add the server once:
 
 ```
-claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 
 The **first** charging call then triggers a one-time OAuth sign-in in the browser. Until the tools are

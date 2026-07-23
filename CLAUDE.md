@@ -22,7 +22,7 @@ cleanly (higgsfield-ai/skills). Two things that made install FAIL — do not rei
    must be the repo root with `source: "./"`.
 2. **A bundled remote (`type: http`) MCP** (`.mcp.json` in the plugin) — same rejection. Ship skills
    only; users connect the hosted MCP once with
-   `claude mcp add --transport http behooked https://mcp.behooked.ai/mcp`.
+   `claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/`.
 
 ## Hard rules
 

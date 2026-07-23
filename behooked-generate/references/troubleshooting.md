@@ -3,9 +3,17 @@
 ## Tools aren't available / not connected
 The BeHooked MCP isn't connected — it's a separate one-time setup from the skill. Add it once:
 ```
-claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
 ```
 Then complete the OAuth sign-in on the first generation call.
+
+## `Protected resource https://mcp.behooked.ai/mcp/ does not match expected ...` (SDK auth failed)
+The MCP was added **without** the trailing slash. The server advertises its OAuth resource **with** a
+trailing slash, and the strict SDK client requires an exact match. Re-add it with the slash:
+```
+claude mcp remove behooked
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp/
+```
 
 ## `account_required`
 The connected login has no BeHooked plan yet. Someone can OAuth-connect before ever setting up BeHooked.
