@@ -12,7 +12,7 @@ description: |
   (use behooked-product-photoshoot), real-estate house tours (use behooked-house-tour), or anything
   about billing/plans/buying credits (that is web-only at behooked.ai).
 argument-hint: "[what to generate] [--image|--video|--audio] [--model <id>]"
-allowed-tools: mcp__plugin_behooked_behooked__find_model, mcp__plugin_behooked_behooked__list_models, mcp__plugin_behooked_behooked__describe_model, mcp__plugin_behooked_behooked__estimate_cost, mcp__plugin_behooked_behooked__validate_params, mcp__plugin_behooked_behooked__generate_image, mcp__plugin_behooked_behooked__generate_video, mcp__plugin_behooked_behooked__generate_audio, mcp__plugin_behooked_behooked__generate_edit, mcp__plugin_behooked_behooked__generate_lipsync, mcp__plugin_behooked_behooked__await_result, mcp__plugin_behooked_behooked__get_result, mcp__plugin_behooked_behooked__list_jobs, mcp__plugin_behooked_behooked__get_credit_balance, mcp__plugin_behooked_behooked__get_upload_url, mcp__plugin_behooked_behooked__list_assets
+allowed-tools: mcp__behooked__*
 ---
 
 # BeHooked — Generate
@@ -21,15 +21,20 @@ Generate media through the **BeHooked Studio MCP**. This skill is the "taste lay
 pick, how to build its parameters, and how to run the priced-then-generate workflow the server expects.
 
 > Tool names below are written unprefixed (`generate_image`, `describe_model`, …). They are served by
-> the `behooked` MCP; your client shows them prefixed (e.g. `mcp__plugin_behooked_behooked__generate_image`).
+> the `behooked` MCP; your client shows them prefixed (e.g. `mcp__behooked__generate_image`).
 > Use whichever the client exposes.
 
 ## Step 0 — the MCP must be connected
 
-This skill drives the BeHooked MCP. If installed as the `behooked` plugin, the server is registered
-automatically and the **first** charging call triggers a one-time OAuth consent in the browser. If the
-tools aren't available, tell the user to add the connector (`/plugin install behooked@behooked`, or add
-`https://mcp.behooked.ai/mcp` as an HTTP MCP server) and sign in when prompted. Do not fabricate output.
+This skill drives the BeHooked MCP, which is a **separate one-time setup** from installing the skill.
+If the `behooked` tools aren't available, tell the user to add the server once:
+
+```
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+```
+
+The **first** charging call then triggers a one-time OAuth sign-in in the browser. Until the tools are
+present, don't fabricate output — guide the user through the one-line setup above.
 
 ## The one thing to understand: the thin signature
 

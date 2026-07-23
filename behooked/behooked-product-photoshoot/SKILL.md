@@ -9,7 +9,7 @@ description: |
   NOT for: ad videos (use behooked-ads), arbitrary single-image generation (use behooked-generate),
   house tours (use behooked-house-tour), or billing (web-only).
 argument-hint: "[product photo path or URL] [--aspect 1:1|4:3|16:9]"
-allowed-tools: mcp__plugin_behooked_behooked__list_apps, mcp__plugin_behooked_behooked__describe_app, mcp__plugin_behooked_behooked__validate_app_inputs, mcp__plugin_behooked_behooked__generate_app, mcp__plugin_behooked_behooked__await_app_result, mcp__plugin_behooked_behooked__get_app_result, mcp__plugin_behooked_behooked__list_app_jobs, mcp__plugin_behooked_behooked__get_upload_url, mcp__plugin_behooked_behooked__get_credit_balance
+allowed-tools: mcp__behooked__*
 ---
 
 # BeHooked — Product Photoshoot
@@ -17,7 +17,7 @@ allowed-tools: mcp__plugin_behooked_behooked__list_apps, mcp__plugin_behooked_be
 Generate a cinematic product photoshoot from one photo, via the **BeHooked Studio MCP** `shots` app. It
 produces 9 storyboard-style shots from a single input image.
 
-> Tools written unprefixed; your client may show `mcp__plugin_behooked_behooked__<tool>`. The MCP must
+> Tools written unprefixed; your client may show `mcp__behooked__<tool>`. The MCP must
 > be connected (see behooked-generate Step 0). `user_id` is never an input.
 
 ## What `shots` is

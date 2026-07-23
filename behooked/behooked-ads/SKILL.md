@@ -9,7 +9,7 @@ description: |
   NOT for: plain media generation (use behooked-generate), product photoshoot stills
   (use behooked-product-photoshoot), house tours (use behooked-house-tour), or billing (web-only).
 argument-hint: "[product URL or description] [--template <name>] [--count N] [--aspect 9:16|16:9|1:1]"
-allowed-tools: mcp__plugin_behooked_behooked__list_apps, mcp__plugin_behooked_behooked__describe_app, mcp__plugin_behooked_behooked__scrape, mcp__plugin_behooked_behooked__validate_app_inputs, mcp__plugin_behooked_behooked__estimate_app_cost, mcp__plugin_behooked_behooked__generate_app, mcp__plugin_behooked_behooked__generate_app_batch, mcp__plugin_behooked_behooked__await_app_result, mcp__plugin_behooked_behooked__get_app_result, mcp__plugin_behooked_behooked__get_app_batch, mcp__plugin_behooked_behooked__list_app_jobs, mcp__plugin_behooked_behooked__get_upload_url, mcp__plugin_behooked_behooked__get_credit_balance
+allowed-tools: mcp__behooked__*
 ---
 
 # BeHooked — Ads
@@ -22,7 +22,7 @@ Create product ad videos through the **BeHooked Studio MCP** apps surface. Two a
   `template` (and optionally a brand avatar/voice).
 
 > Tools are written unprefixed here; your client may show them as
-> `mcp__plugin_behooked_behooked__<tool>`. Use whatever the client exposes. The MCP must be connected
+> `mcp__behooked__<tool>`. Use whatever the client exposes. The MCP must be connected
 > (see behooked-generate Step 0). `user_id` is never an input.
 
 ## Apps take two dicts

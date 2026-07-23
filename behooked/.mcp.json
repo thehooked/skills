@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "behooked": {
-      "type": "http",
-      "url": "https://mcp.behooked.ai/mcp"
-    }
-  }
-}

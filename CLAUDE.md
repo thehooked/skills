@@ -5,22 +5,25 @@ it clean of anything internal.
 
 ## What this repo is
 
-A Claude Code plugin (`behooked`) bundling four skills plus an MCP registration. Each skill is a
-`SKILL.md` + a `references/` folder. The skills are prose over the live BeHooked Studio MCP — there is no
-backend code here.
+A Claude Code plugin (`behooked`) bundling four **skills** (no MCP is bundled). Each skill is a
+`SKILL.md` + a `references/` folder. The skills are prose over the live BeHooked Studio MCP, which the
+user connects separately — there is no backend code here.
 
 ```
 .claude-plugin/marketplace.json      # marketplace; points plugin source at ./behooked
 behooked/                            # the plugin (source: "./behooked")
   .claude-plugin/plugin.json         #   plugin metadata
-  .mcp.json                          #   registers the remote BeHooked MCP (https://mcp.behooked.ai/mcp)
   behooked-generate/  behooked-ads/  behooked-product-photoshoot/  behooked-house-tour/
 ```
 
-The plugin lives in a **subdirectory** (`behooked/`), not the repo root, on purpose: a plugin
-`source: "./"` (root) can trip a Claude Code installer bug that rejects it as an unsupported source
-type. A subdir relative-path source (`"./behooked"`) avoids it. `.mcp.json` sits at the **plugin**
-root (`behooked/.mcp.json`), which is where Claude Code auto-discovers it.
+**Skills-only, no bundled MCP — on purpose.** Claude Code doesn't reliably support bundling a *remote*
+(`type: http`) MCP server inside a plugin: installing such a plugin fails with "This plugin uses a
+source type your Claude Code version does not support" (observed on 2.1.207; not confirmed fixed on
+later versions). So the plugin ships skills only, and users connect the hosted MCP once with
+`claude mcp add --transport http behooked https://mcp.behooked.ai/mcp`. The plugin also lives in a
+subdirectory (`source: "./behooked"`, not root `"./"`) to avoid a separate `.`→git source-normalization
+bug (GH #64431). Do **not** re-add a `.mcp.json` to the plugin unless bundled remote MCP becomes
+reliably supported.
 
 ## Hard rules
 
@@ -37,10 +40,11 @@ root (`behooked/.mcp.json`), which is where Claude Code auto-discovers it.
 
 ## Tool naming
 
-Skills refer to MCP tools by base name (`generate_image`, `describe_app`, …). When bundled via this
-plugin, clients expose them scoped as `mcp__plugin_behooked_<server>__<tool>`; the `allowed-tools` lines
-in each `SKILL.md` use the scoped form. If the scoping differs in a client, the base names in the prose
-still tell the agent what to call.
+Skills refer to MCP tools by base name (`generate_image`, `describe_app`, …). Because users add the MCP
+themselves as a server named `behooked`, clients expose the tools as `mcp__behooked__<tool>`; each
+`SKILL.md` uses `allowed-tools: mcp__behooked__*`. This assumes the server is named exactly `behooked`
+(as INSTALL instructs). If a client namespaces differently, the base names in the prose still tell the
+agent what to call.
 
 ## Workflow the skills encode (must stay consistent with the server)
 

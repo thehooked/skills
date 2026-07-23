@@ -1,8 +1,11 @@
 # Troubleshooting
 
 ## Tools aren't available / not connected
-The BeHooked MCP isn't connected. Install the plugin (`/plugin install behooked@behooked`) or add
-`https://mcp.behooked.ai/mcp` as an HTTP MCP server, then complete the OAuth sign-in on the first call.
+The BeHooked MCP isn't connected — it's a separate one-time setup from the skill. Add it once:
+```
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
+```
+Then complete the OAuth sign-in on the first generation call.
 
 ## `account_required`
 The connected login has no BeHooked plan yet. Someone can OAuth-connect before ever setting up BeHooked.

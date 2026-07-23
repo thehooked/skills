@@ -17,13 +17,22 @@ the BeHooked MCP for you; you sign in once via OAuth on the first generation.
 
 ## Install (Claude Code)
 
+Two one-time steps — install the skills, then connect the BeHooked MCP:
+
 ```
+# 1. install the skills
 /plugin marketplace add thehooked/skills
 /plugin install behooked@behooked
+
+# 2. connect the BeHooked MCP (run in your terminal)
+claude mcp add --transport http behooked https://mcp.behooked.ai/mcp
 ```
 
-That's it. The `behooked` MCP server is registered automatically. The **first** time a skill runs a
-generation, your browser opens a one-time BeHooked sign-in (OAuth); after that it just works.
+The **first** time a skill runs a generation, your browser opens a one-time BeHooked sign-in (OAuth);
+after that it just works.
+
+> Why two steps? Claude Code doesn't yet reliably bundle a remote MCP server inside a plugin, so the
+> skills ship on their own and you connect the hosted MCP with the one-line `claude mcp add` above.
 
 > New to BeHooked? You can connect before you have an account. When a skill reports `account_required`,
 > finish signing up and pick a plan at **[behooked.ai](https://behooked.ai)** — then continue right in
