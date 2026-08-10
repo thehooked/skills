@@ -11,7 +11,7 @@ avatar.
 
 ## Parameters (`parameters` dict) — confirm via `describe_app`
 - `aspect_ratio` — default `16:9` (also `9:16` for vertical/social).
-- `quality` — tiers: standard / standard_v2v / pro / premium (higher tiers cost more; get figures from
+- `quality` — tiers: standard / pro (higher tiers cost more; get figures from
   `estimate_app_cost`).
 - `template` — default `cinematic`.
 - `duration`, `resolution`, `generate_audio` — defaults provided by the app.

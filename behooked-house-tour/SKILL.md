@@ -25,7 +25,7 @@ Generate a cinematic property walkthrough from listing photos, via the **BeHooke
   URLs. Each must be a fetchable URL — stage local files with `get_upload_url`.
 - Optional inputs: `avatar_url` (a tour-guide presenter), `avatar_preview_url`, `avatar_scrambled`.
 - `parameters` (confirm via `describe_app`): `aspect_ratio` (default `16:9`), `quality` tier
-  (standard / standard_v2v / pro / premium), `duration`, `resolution`, `generate_audio`, `template`
+  (standard / pro), `duration`, `resolution`, `generate_audio`, `template`
   (default `cinematic`).
 
 ## Mandatory workflow (server-enforced)
