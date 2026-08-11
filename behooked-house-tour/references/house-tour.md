@@ -1,24 +1,28 @@
 # house-tour — details
 
-Turn up to 7 house/room photos into a cinematic walkthrough video, optionally narrated by a guide
+Turn up to 15 house/room photos into a cinematic walkthrough video, optionally narrated by a guide
 avatar.
 
 ## Inputs (`inputs` dict)
-- `image_urls` — **required, a list** of up to 7 photo URLs (this is an `array_input`; a bare string
+- `image_urls` — **required, a list** of up to 15 photo URLs (this is an `array_input`; a bare string
   fails validation). Fields under `s3_input_fields` must be fetchable URLs — upload locals first.
+  15 is the web app's cap; the server only enforces the model's own 30-reference ceiling across
+  rooms + avatar + floor plan combined.
 - `avatar_url` (optional) — a tour-guide presenter to narrate/appear.
 - `avatar_preview_url`, `avatar_scrambled` (optional) — avatar support fields.
 
 ## Parameters (`parameters` dict) — confirm via `describe_app`
 - `aspect_ratio` — default `16:9` (also `9:16` for vertical/social).
-- `quality` — tiers: standard / pro (higher tiers cost more; get figures from
-  `estimate_app_cost`).
+- `resolution` — `480p` (default) or `720p`. This is the price axis: cost scales with
+  resolution AND duration, so pass both to `estimate_app_cost` for a real figure. There are
+  no quality tiers — a `quality` value is ignored.
+- `duration` — `8` / `12` / `15` / `30` seconds. Every length renders in a single pass.
 - `template` — default `cinematic`.
-- `duration`, `resolution`, `generate_audio` — defaults provided by the app.
+- `generate_audio` — default provided by the app.
 
 ## Flow
 ```
-get_upload_url (per photo) -> upload -> image_urls = [url1, ..., url7]
+get_upload_url (per photo) -> upload -> image_urls = [url1, ..., url15]
 describe_app("house-tour")
 estimate_app_cost("house-tour", parameters={...}, inputs={"image_urls": [...]})   # state the number
 validate_app_inputs("house-tour", {"image_urls": [...], ...})

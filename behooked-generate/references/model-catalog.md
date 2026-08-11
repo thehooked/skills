@@ -829,7 +829,7 @@ Advanced AI upscaling with full Topaz model selection and fine-tuning controls
 - URL/upload inputs: `image_url`, `video_url`
 
 #### `house-tour` — House Tour
-Generate cinematic walkthrough videos from up to 7 house images, optionally with a tour-guide avatar
+Generate cinematic walkthrough videos from up to 15 house images, optionally with a tour-guide avatar
 - kind: output=video
 - required inputs: `image_urls`
 - optional inputs: `avatar_url`, `avatar_preview_url`, `avatar_scrambled`

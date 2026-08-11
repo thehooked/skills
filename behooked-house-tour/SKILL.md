@@ -3,7 +3,7 @@ version: 0.1.0
 name: behooked-house-tour
 description: |
   Generate a cinematic real-estate walkthrough video from house photos with BeHooked Studio's live MCP,
-  using the `house-tour` app — up to 7 room images become a tour, optionally narrated by a guide avatar.
+  using the `house-tour` app — up to 15 room images become a tour, optionally narrated by a guide avatar.
   Use when: "make a house tour video", "turn these listing photos into a walkthrough", "real-estate
   tour video from these room images", "property walkthrough with a presenter".
   NOT for: product ads (use behooked-ads), product photoshoots (use behooked-product-photoshoot),
@@ -21,16 +21,17 @@ Generate a cinematic property walkthrough from listing photos, via the **BeHooke
 > be connected (see behooked-generate Step 0). `user_id` is never an input.
 
 ## Inputs & parameters
-- `inputs.image_urls` — **required, a list** (this is an `array_input`) of up to 7 room/house photo
+- `inputs.image_urls` — **required, a list** (this is an `array_input`) of up to 15 room/house photo
   URLs. Each must be a fetchable URL — stage local files with `get_upload_url`.
 - Optional inputs: `avatar_url` (a tour-guide presenter), `avatar_preview_url`, `avatar_scrambled`.
-- `parameters` (confirm via `describe_app`): `aspect_ratio` (default `16:9`), `quality` tier
-  (standard / pro), `duration`, `resolution`, `generate_audio`, `template`
+- `parameters` (confirm via `describe_app`): `aspect_ratio` (default `16:9`), `resolution`
+  (`480p` default or `720p` — this is the price axis; there are no quality tiers),
+  `duration` (`8`/`12`/`15`/`30`, all rendered in one pass), `generate_audio`, `template`
   (default `cinematic`).
 
 ## Mandatory workflow (server-enforced)
 1. **Stage images** — `get_upload_url` per photo → upload → collect the URLs into a list.
-2. **Discover** — `describe_app("house-tour")` for the contract, allowed values, quality tiers, and
+2. **Discover** — `describe_app("house-tour")` for the contract, allowed values, and
    `time_estimate`.
 3. **Estimate + say the number** — `estimate_app_cost("house-tour", parameters={...}, inputs={...})`;
    state the credit cost before generating.
@@ -41,9 +42,9 @@ Generate a cinematic property walkthrough from listing photos, via the **BeHooke
 6. **Poll** — `await_app_result(request_id)` → the walkthrough video `output_url`.
 
 ```
-get_upload_url (per photo) -> upload -> image_urls = [url1, url2, ...]   # up to 7
+get_upload_url (per photo) -> upload -> image_urls = [url1, url2, ...]   # up to 15
 describe_app("house-tour")
-estimate_app_cost("house-tour", parameters={aspect_ratio, quality, template}, inputs={image_urls})  # say it
+estimate_app_cost("house-tour", parameters={resolution, duration, aspect_ratio, template}, inputs={image_urls})  # say it
 validate_app_inputs("house-tour", {image_urls, ...})
 generate_app("house-tour", inputs={image_urls, avatar_url?}, parameters={...}, idempotency_key)
 await_app_result(request_id)   # -> tour video url
