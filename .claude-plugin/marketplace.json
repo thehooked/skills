@@ -5,13 +5,14 @@
     {
       "name": "behooked",
       "source": "./",
-      "version": "0.1.0",
-      "description": "Generate images, video, and audio and run marketing apps (ads, product photoshoots, house tours) via the BeHooked MCP.",
+      "version": "0.2.0",
+      "description": "Generate images, video, and audio and run marketing apps (ads, product photoshoots, house tours) and talking-head videos via the BeHooked MCP.",
       "skills": [
         "./behooked-generate",
         "./behooked-ads",
         "./behooked-product-photoshoot",
-        "./behooked-house-tour"
+        "./behooked-house-tour",
+        "./behooked-talking-head"
       ]
     }
   ]
