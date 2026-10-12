@@ -1,5 +1,5 @@
 ---
-version: 0.1.0
+version: 0.1.2
 name: behooked-talking-head
 description: |
   Make a talking-head video (a presenter speaking your script, with b-roll scenes and captions) with
@@ -30,6 +30,7 @@ b-roll images and videos, captions and background music, and renders a vertical 
 | `check_talking_head` | yes (only steps already stated) | Moves the project forward; stops for approval; returns the final video |
 | `approve_talking_head` | yes | Approves the layout the user was shown, at the exact cost they saw |
 | `list_talking_head_jobs` | no | Finds earlier projects so you can continue one |
+| `export_talking_head_xml` | no | The Premiere / DaVinci package (editable timeline) of a finished video, as a zip link |
 
 ## Mandatory workflow
 1. **Write the script with the user** in the chat, and get their OK. About **3.2 spoken words per
@@ -38,8 +39,9 @@ b-roll images and videos, captions and background music, and renders a vertical 
 2. **Pick a presenter** — `list_talking_head_avatars`; show the previews (`preview_url`) and let the user
    choose. Only `usable: true` avatars can be started.
 3. **Estimate + validate + say the number** — `estimate_talking_head(avatar_id, script, …)`. Fix every
-   entry in `errors`. Then **state `before_approval_credits`** in your reply, and say that the b-roll and
-   the avatar video are priced exactly when the layout is ready, and need their approval then.
+   entry in `errors`. Then **state the cost in the order it is charged**, following `charge_steps`: the
+   voice at start, the layout build on the next check, then the b-roll + avatar video, priced exactly
+   with the scenes and charged only after their approval. Don't call it all "charged now".
 4. **Start** — `start_talking_head(…same inputs…, idempotency_key)`. Reuse the key on a retry.
 5. **Check until approval** — call `check_talking_head(job_id, wait_s=…)` until `status` is
    `awaiting_approval`.
@@ -47,7 +49,11 @@ b-roll images and videos, captions and background music, and renders a vertical 
    the phrase it covers) and `layout_review.approve_credits`. Ask the user to approve.
 7. **Approve** — only after a yes: `approve_talking_head(job_id, expected_credits=<approve_credits>)`.
    If the cost changed, it is refused — show the new figure and ask again.
-8. **Check until done** — `check_talking_head` until `status` is `done`; give the user `final_video_url`.
+8. **Check until done** — `check_talking_head` until `status` is `done`; give the user `final_video_url`,
+   and mention in one line that an editable Premiere / DaVinci package is available if they want it.
+9. **XML export (only if asked)** — `export_talking_head_xml(job_id)`. It returns `xml_zip_url` (a large
+   zip) and `how_to_import`. **Give the user the link; never download, open or attach the file.** If it
+   says `running`, call it again; it never starts a second export.
 
 ```
 (script agreed in chat)
@@ -63,7 +69,17 @@ check_talking_head(job_id, wait_s=600)          # repeat until done -> final_vid
 ## Options (defaults in brackets)
 - `avatar_quality` — `low` (Base), `medium` (Good) **[default]**, `high` (Great). Higher looks better
   and costs more per second of speech.
-- `voice_speed` — 0.6–1.5 **[1.2]**.
+- **Voice pace** — always say the pace **name** (the estimate returns it as `voice_pace`), never a
+  multiplier like "1.2x". **Lively** is the default and the pace made for short-form video; present it as
+  recommended and offer another only if the user asks. Pass the number as `voice_speed`:
+
+  | Pace | `voice_speed` | Sounds like |
+  |---|---|---|
+  | Relaxed | 0.9 | Calm and unhurried |
+  | Natural | 1.0 | Everyday talking speed |
+  | **Lively** (default) | 1.2 | Brisk and upbeat; made for short-form video |
+  | Energetic | 1.4 | Quick and punchy |
+  | Rapid-fire | 1.5 | As fast as it goes |
 - `caption_type` — **[`advanced-tiktok`]**; other classic styles, `none`, or `dc:<style>`. An invalid id
   returns the full list in `errors`.
 - `style` — `full` **[default]** (b-roll full screen) or `splits` (adds split-screen scenes).
@@ -85,6 +101,8 @@ check_talking_head(job_id, wait_s=600)          # repeat until done -> final_vid
 - To change scenes, upload their own b-roll, or pick music, the user opens `website_url` — the same
   project is on the website.
 - Return the finished video URL; don't dump job ids or raw status objects.
+- The XML package is a **link only**. Pass on `how_to_import` (Premiere: File > Import; DaVinci: File >
+  Import > Timeline with "Use sizing information" ticked).
 
 ## References
 - [references/talking-head.md](references/talking-head.md) — statuses, the layout review, retries,
