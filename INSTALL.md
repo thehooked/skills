@@ -14,7 +14,7 @@ Claude Code, Cursor, Codex, and more. No npm package, no API keys.
 
 In **Claude Code**, run `/reload-skills` afterward to load them in the current session. Confirm the skills
 are available from your prompts — e.g. `/behooked:generate`, `/behooked:ads`,
-`/behooked:product-photoshoot`, `/behooked:house-tour`.
+`/behooked:product-photoshoot`, `/behooked:house-tour`, `/behooked:talking-head`.
 
 ## 2. Connect the BeHooked MCP
 

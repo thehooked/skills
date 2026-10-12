@@ -5,7 +5,7 @@ it clean of anything internal.
 
 ## What this repo is
 
-Four agent **skills** for BeHooked, each a `SKILL.md` + a `references/` folder. The skills are prose over
+Five agent **skills** for BeHooked, each a `SKILL.md` + a `references/` folder. The skills are prose over
 the live BeHooked Studio MCP, which the user connects separately — there is no backend code here. They
 install two ways: the open cross-agent installer (`npx skills add thehooked/skills`, the primary path,
 which reads the `SKILL.md` dirs straight from the repo) or as a Claude Code marketplace plugin
@@ -14,7 +14,7 @@ which reads the `SKILL.md` dirs straight from the repo) or as a Claude Code mark
 ```
 .claude-plugin/marketplace.json      # marketplace (plugin source: "./")
 .claude-plugin/plugin.json           # plugin metadata
-behooked-generate/  behooked-ads/  behooked-product-photoshoot/  behooked-house-tour/
+behooked-generate/  behooked-ads/  behooked-product-photoshoot/  behooked-house-tour/  behooked-talking-head/
 ```
 
 **Flat layout + `source: "./"` + skills-only, on purpose.** This mirrors the exact shape that installs
@@ -52,6 +52,12 @@ agent what to call.
 discover (`describe_model` / `describe_app`) → estimate + **state the credit cost** → validate →
 generate (with an `idempotency_key`) → poll (`await_result` / `await_app_result`). Never generate as a
 first action, never before validating, never before stating cost. Apps/media don't charge on failure.
+
+**Talking Head is different** (its own six tools, not `generate_app`): script agreed in chat →
+`list_talking_head_avatars` → `estimate_talking_head` (estimate **and** validate; state the cost) →
+`start_talking_head` → `check_talking_head` until `awaiting_approval` → show every scene + the exact
+approval cost and get a yes → `approve_talking_head(expected_credits)` → `check_talking_head` until
+`done`. It charges each step as it starts and refunds a failed step (not the finished ones before it).
 
 ## Adding or editing a skill
 

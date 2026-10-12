@@ -2,8 +2,8 @@
 
 AI media-generation skills for coding agents, powered by the live **[BeHooked Studio](https://behooked.ai)** MCP.
 
-Generate images, video, and audio, and run marketing apps (product ads, product photoshoots, real-estate
-house tours) directly from your agent — no API keys to manage. Install the skills, connect the BeHooked
+Generate images, video, and audio, run marketing apps (product ads, product photoshoots, real-estate
+house tours), and make talking-head presenter videos directly from your agent — no API keys to manage. Install the skills, connect the BeHooked
 MCP once, and sign in via OAuth on the first generation.
 
 ## Skills
@@ -14,6 +14,7 @@ MCP once, and sign in via OAuth on the first generation.
 | `/behooked:ads` | Product ad videos from a URL (auto-scraped) or your product photos; single ads or batches of variations across creative templates. |
 | `/behooked:product-photoshoot` | 9 cinematic studio shots from a single product photo. |
 | `/behooked:house-tour` | Cinematic real-estate walkthrough video from listing photos, optionally with a guide avatar. |
+| `/behooked:talking-head` | A presenter speaking a script you write together, with b-roll and captions; you approve the scene layout and its exact cost before it renders. |
 
 ## Install
 
