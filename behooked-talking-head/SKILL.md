@@ -1,5 +1,5 @@
 ---
-version: 0.1.1
+version: 0.1.2
 name: behooked-talking-head
 description: |
   Make a talking-head video (a presenter speaking your script, with b-roll scenes and captions) with
@@ -30,6 +30,7 @@ b-roll images and videos, captions and background music, and renders a vertical 
 | `check_talking_head` | yes (only steps already stated) | Moves the project forward; stops for approval; returns the final video |
 | `approve_talking_head` | yes | Approves the layout the user was shown, at the exact cost they saw |
 | `list_talking_head_jobs` | no | Finds earlier projects so you can continue one |
+| `export_talking_head_xml` | no | The Premiere / DaVinci package (editable timeline) of a finished video, as a zip link |
 
 ## Mandatory workflow
 1. **Write the script with the user** in the chat, and get their OK. About **3.2 spoken words per
@@ -48,7 +49,11 @@ b-roll images and videos, captions and background music, and renders a vertical 
    the phrase it covers) and `layout_review.approve_credits`. Ask the user to approve.
 7. **Approve** — only after a yes: `approve_talking_head(job_id, expected_credits=<approve_credits>)`.
    If the cost changed, it is refused — show the new figure and ask again.
-8. **Check until done** — `check_talking_head` until `status` is `done`; give the user `final_video_url`.
+8. **Check until done** — `check_talking_head` until `status` is `done`; give the user `final_video_url`,
+   and mention in one line that an editable Premiere / DaVinci package is available if they want it.
+9. **XML export (only if asked)** — `export_talking_head_xml(job_id)`. It returns `xml_zip_url` (a large
+   zip) and `how_to_import`. **Give the user the link; never download, open or attach the file.** If it
+   says `running`, call it again; it never starts a second export.
 
 ```
 (script agreed in chat)
@@ -96,6 +101,8 @@ check_talking_head(job_id, wait_s=600)          # repeat until done -> final_vid
 - To change scenes, upload their own b-roll, or pick music, the user opens `website_url` — the same
   project is on the website.
 - Return the finished video URL; don't dump job ids or raw status objects.
+- The XML package is a **link only**. Pass on `how_to_import` (Premiere: File > Import; DaVinci: File >
+  Import > Timeline with "Use sizing information" ticked).
 
 ## References
 - [references/talking-head.md](references/talking-head.md) — statuses, the layout review, retries,

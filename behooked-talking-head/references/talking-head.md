@@ -41,3 +41,13 @@ Continue any of them with `check_talking_head(job_id)`.
 - Open with a hook in the first sentence; one idea per sentence; end with a call to action.
 - Write numbers and abbreviations the way they should be spoken; avoid long lists and parentheses.
 - Show the user the full script and get their OK before starting — the voice is charged at start.
+
+## XML export (Premiere / DaVinci)
+Only when the user asks, and only for a `done` project: `export_talking_head_xml(job_id, wait_s)`.
+- `status: ready` gives `xml_zip_url`, a permanent link to a large zip (timeline `.xml`, presenter, voice,
+  b-roll, `captions.srt`, `captions.mov`, `HOW_TO_IMPORT.txt`). **Hand over the link only.**
+- `status: running` means it's still building (usually a few minutes); call again. It never starts a second export.
+- `status: failed` means calling it again retries. If the video changed after rendering, finish it with
+  `check_talking_head` first.
+- Importing: Premiere Pro **File > Import**; DaVinci Resolve **File > Import > Timeline** with
+  **Use sizing information** ticked.
