@@ -80,7 +80,7 @@ check_talking_head(job_id, wait_s=600)          # repeat until done -> final_vid
   | **Lively** (default) | 1.2 | Brisk and upbeat; made for short-form video |
   | Energetic | 1.4 | Quick and punchy |
   | Rapid-fire | 1.5 | As fast as it goes |
-- `caption_type` — **[`advanced-tiktok`]**; other classic styles, `none`, or `dc:<style>`. An invalid id
+- `caption_type` — **[`simple1`]**; other classic styles, `none`, or `dc:<style>`. An invalid id
   returns the full list in `errors`.
 - `style` — `full` **[default]** (b-roll full screen) or `splits` (adds split-screen scenes).
 - `music` — on **[default]** or off.
