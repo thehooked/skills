@@ -93,7 +93,7 @@ check_talking_head(job_id, wait_s=600)          # repeat until done -> final_vid
 - A whole video usually takes several minutes and can take longer. Tell the user they can keep working;
   call `check_talking_head` with `wait_s` up to 600.
 - **Failures:** Talking Head charges each step as it starts. If a step fails, **that step is refunded**
-  (earlier finished steps are not). `check_talking_head` returns `error.phase` and `error.retry_cost` —
+  (earlier finished steps are not). `check_talking_head` returns `error.phase` and `error.retry_credits` —
   tell the user, and retry with `check_talking_head(job_id, retry=true)` only if they agree.
 - `concurrency_limit` → too many generations running for their plan; wait for one to finish, retry.
   `insufficient_credits` at start → the project is kept as a draft; they top up at behooked.ai, then

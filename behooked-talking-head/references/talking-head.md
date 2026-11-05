@@ -10,7 +10,7 @@
 | `running` | `voice` / `layout` / `assets` / `compose` | Work is in progress | Call `check_talking_head` again (`poll_after_s` is a hint) |
 | `awaiting_approval` | `approval` | The layout is ready | Show `layout_review`, ask, then `approve_talking_head` |
 | `done` | `done` | Finished | Give the user `final_video_url` |
-| `failed` | the failed step | A step failed and was refunded | Tell the user `error.message` + `error.retry_cost`; retry only on a yes |
+| `failed` | the failed step | A step failed and was refunded | Tell the user `error.message` + `error.retry_credits`; retry only on a yes |
 
 `check_talking_head` never approves and never retries on its own. If the agent stops calling it,
 nothing more is charged — the project waits, and any later `check_talking_head` (or the website)
@@ -19,7 +19,7 @@ picks it up again.
 ## The layout review
 At `awaiting_approval`, `layout_review` holds:
 - `scenes` — one per b-roll scene: `time` (e.g. `0:03.2-0:06.7`), `kind` (`image` or `video`),
-  `phrase` (the words it covers), `description` (what it will show), `cost`.
+  `phrase` (the words it covers), `description` (what it will show), `credits`.
 - `approve_credits` — the exact total charged on approval (all scenes + the avatar video).
 - `breakdown` — image count/credits, video count/credits, avatar credits.
 - `voice_seconds`, `presenter_only_seconds` — speech length and the time with no b-roll.
